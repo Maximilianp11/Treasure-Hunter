@@ -32,6 +32,16 @@ public class Hunter {
      *
      * @param modifier Amount to modify gold by.
      */
+
+    /**
+     * Returns the amount of gold the hunter has.
+     * @return gold
+     */
+    public int getGold() {
+        return gold;
+    }
+
+
     public void changeGold(int modifier) {
         gold += modifier;
         if (gold < 0) {
@@ -62,6 +72,7 @@ public class Hunter {
      *
      * @param item The item being sold.
      * @param buyBackPrice the amount of gold earned from selling the item
+     * @return true if the item was successfully sold.
      * @return true if the item was successfully sold.
      */
     public boolean sellItem(String item, int buyBackPrice) {

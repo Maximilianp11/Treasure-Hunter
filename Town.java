@@ -93,7 +93,7 @@ public class Town {
         if (toughTown) {
             noTroubleChance = 0.66;
         } else {
-            noTroubleChance = 0.33;
+            noTroubleChance = 1; // MUST CHANGE TO 0.33
         }
 
         if (Math.random() > noTroubleChance) {
@@ -107,8 +107,16 @@ public class Town {
                 hunter.changeGold(goldDiff);
             } else {
                 printMessage += Colors.RED + "That'll teach you to go lookin' fer trouble in MY town! Now pay up!" + Colors.RESET;
-                printMessage += Colors.RED + "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
-                hunter.changeGold(-goldDiff);
+
+                if (hunter.getGold() - goldDiff >= 0) {
+                    hunter.changeGold(-goldDiff);
+                    printMessage += Colors.RED + "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
+                } else {
+                    System.out.println();
+                    hunter.changeGold(-goldDiff);
+                    printMessage += Colors.RED + "\nYou lost the brawl and could not pay the " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
+                    printMessage += "\n" + Colors.RED + "You lose.";
+                }
             }
         }
     }

@@ -36,6 +36,8 @@ public class TreasureHunter {
         showMenu();
     }
 
+
+
     /**
      * Creates a hunter object at the beginning of the game and populates the class member variable with it.
      */
@@ -101,7 +103,7 @@ public class TreasureHunter {
     private void showMenu() {
         String choice = "";
 
-        while (!choice.equals("x")) {
+        while (!choice.equals("x") && hunter.getGold() >= 0) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -134,7 +136,7 @@ public class TreasureHunter {
             }
         } else if (choice.equals("l")) {
             currentTown.lookForTrouble();
-        } else if (choice.equals("x")) {
+        } else if (choice.equals("x") || hunter.getGold() < 0) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
