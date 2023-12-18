@@ -50,8 +50,15 @@ public class TreasureHunter {
 
         System.out.print("Hard mode? (y/n): ");
         String hard = SCANNER.nextLine().toLowerCase();
+        String[] itemsToPopulate = {"water", "rope", "machete", "horse", "boat"};
+        int[] prices = Shop.getPriceList();
         if (hard.equals("y")) {
             hardMode = true;
+        } else if (hard.equals("test")) {
+            hunter.changeGold(134);
+            for (int i = 0; i < prices.length; i++) {
+                hunter.buyItem(itemsToPopulate[i], prices[i]);
+            }
         }
     }
 

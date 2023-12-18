@@ -31,6 +31,13 @@ public class Shop {
         customer = null; // is set in the enter method
     }
 
+    public static int[] getPriceList() {
+        int[] arr = {2, 4, 6, 12, 20};
+        return arr;
+    }
+
+
+
     /**
      * Method for entering the shop.
      *
