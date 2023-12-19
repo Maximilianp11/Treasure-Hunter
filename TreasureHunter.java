@@ -105,8 +105,11 @@ public class TreasureHunter {
      */
     private void showMenu() {
         String choice = "";
-
-        while (!choice.equals("x") && hunter.getGold() >= 0) {
+        if (currentTown.getCouldNotPay()) {
+            System.out.println(Colors.RED + "You lose.");
+            processChoice("x");
+        }
+        while (!choice.equals("x") && !currentTown.getCouldNotPay()) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -116,6 +119,7 @@ public class TreasureHunter {
             System.out.println("(S)ell something at the shop.");
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
+            System.out.println("(D)ig for gold");
             System.out.println("(H)unt for treasure!");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
@@ -154,6 +158,8 @@ public class TreasureHunter {
             currentTown.lookForTrouble();
         } else if (choice.equals("x") || hunter.getGold() < 0) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
+        } else if (choice.equals("d")) {
+            currentTown.digForGold();
         } else if (choice.equals("h")) {
             System.out.println("You found a " + currentTown.getTreasure() + "!");
             treasureSearch();
