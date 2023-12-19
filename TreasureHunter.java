@@ -78,6 +78,9 @@ public class TreasureHunter {
             toughness = 0.75;
         }
 
+        String[] treasures = {"Crown", "Trophy", "Gem", "Dust"};
+        String treasure = treasures[(int) (Math.random() * 5)];
+
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
         // variable; we can leave it as a local variable
@@ -86,7 +89,7 @@ public class TreasureHunter {
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
         // object in other methods of this class
-        currentTown = new Town(shop, toughness);
+        currentTown = new Town(shop, toughness, treasure);
 
         // calling the hunterArrives method, which takes the Hunter
         // as a parameter; note this also could have been done in the
@@ -113,11 +116,24 @@ public class TreasureHunter {
             System.out.println("(S)ell something at the shop.");
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
+            System.out.println("(H)unt for treasure!");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
             System.out.print("What's your next move? ");
             choice = SCANNER.nextLine().toLowerCase();
             processChoice(choice);
+        }
+
+    }
+    private void treasureSearch() {
+        if (!currentTown.getTreasure().equals("Dust")) {
+            if (!hunter.hasTreasure(currentTown.getTreasure())) {
+                hunter.addTreasure(currentTown.getTreasure());
+            } else {
+                System.out.println("You already have this treasure you don't need it.");
+            }
+        } else {
+            System.out.println("You do not need this dust.");
         }
     }
 
@@ -138,6 +154,9 @@ public class TreasureHunter {
             currentTown.lookForTrouble();
         } else if (choice.equals("x") || hunter.getGold() < 0) {
             System.out.println("Fare thee well, " + hunter.getHunterName() + "!");
+        } else if (choice.equals("h")) {
+            System.out.println("You found a " + currentTown.getTreasure() + "!");
+            treasureSearch();
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }
