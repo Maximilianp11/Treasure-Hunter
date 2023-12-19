@@ -4,6 +4,8 @@
  * This code has been adapted from Ivan Turner's original program -- thank you Mr. Turner!
  */
 
+import java.util.Random;
+
 public class Town {
     // instance variables
     private Hunter hunter;
@@ -11,6 +13,9 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private boolean couldNotPay;
+    private boolean alreadyDugForGold;
+    private String treasure;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -18,9 +23,11 @@ public class Town {
      * @param shop The town's shoppe.
      * @param toughness The surrounding terrain.
      */
-    public Town(Shop shop, double toughness) {
+    public Town(Shop shop, double toughness, String treasure) {
         this.shop = shop;
         this.terrain = getNewTerrain();
+        this.treasure = treasure;
+
 
         // the hunter gets set using the hunterArrives method, which
         // gets called from a client class
@@ -35,6 +42,11 @@ public class Town {
     public String getLatestNews() {
         return printMessage;
     }
+    public String getTreasure() {
+        return treasure;
+    }
+
+    public boolean getCouldNotPay() { return couldNotPay; }
 
     /**
      * Assigns an object to the Hunter in town.
@@ -60,6 +72,7 @@ public class Town {
     public boolean leaveTown() {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
         if (canLeaveTown) {
+            alreadyDugForGold = false;
             String item = terrain.getNeededItem();
             printMessage = "You used your " + item + " to cross the " + terrain.getTerrainName() + ".";
             if (checkItemBreak()) {
@@ -74,6 +87,31 @@ public class Town {
         return false;
     }
 
+    public void digForGold() {
+        Random rand = new Random();
+        int random1;
+        random1 = rand.nextInt(2);
+
+        if (!alreadyDugForGold) {
+            if (hunter.hasItemInKit("shovel")) {
+                if (random1 == 0) {
+                    System.out.println("You dug but only found dirt");
+                } else if (random1 == 1) {
+                    random1 = (int) (Math.random() * 8) + 12;
+                    System.out.println("You dug up " + random1 + " gold!");
+                    hunter.changeGold(random1);
+                }
+                alreadyDugForGold = true;
+            } else {
+                System.out.println("Yoiu can't dig for gold without a shovel");
+            }
+        } else {
+            System.out.println("You already dug for gold in this town.");
+        }
+
+
+    }
+
     /**
      * Handles calling the enter method on shop whenever the user wants to access the shop.
      *
@@ -81,7 +119,6 @@ public class Town {
      */
     public void enterShop(String choice) {
         shop.enter(hunter, choice);
-        printMessage = "You left the shop";
     }
 
     /**
@@ -118,9 +155,10 @@ public class Town {
                     printMessage += Colors.RED + "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
                 } else {
                     System.out.println();
-                    hunter.changeGold(-goldDiff);
+
+                    //hunter.changeGold(-goldDiff);
                     printMessage += Colors.RED + "\nYou lost the brawl and could not pay the " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
-                    printMessage += "\n" + Colors.RED + "You lose.";
+                    couldNotPay = true;
                 }
             }
         }
