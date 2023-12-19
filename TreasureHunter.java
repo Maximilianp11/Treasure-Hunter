@@ -102,7 +102,7 @@ public class TreasureHunter {
      */
     private void showMenu() {
         String choice = "";
-        if (currentTown.getCouldNotPay() == true) {
+        if (currentTown.getCouldNotPay()) {
             System.out.println(Colors.RED + "You lose.");
             processChoice("x");
         }
