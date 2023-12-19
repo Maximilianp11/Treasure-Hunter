@@ -90,11 +90,15 @@ public class Town {
      * The tougher the town, the easier it is to find a fight, and the harder it is to win one.
      */
     public void lookForTrouble() {
+        int easyMultiplier = 1;
         double noTroubleChance;
         if (toughTown) {
             noTroubleChance = 0.66;
         } else {
-            noTroubleChance = 1; // MUST CHANGE TO 0.33
+            noTroubleChance = 0.33;
+        }
+        if (TreasureHunter.getDifficulty().equals("easy")) {
+            easyMultiplier = 2;
         }
 
         if (Math.random() > noTroubleChance) {
@@ -102,7 +106,7 @@ public class Town {
         } else {
             printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Colors.RESET;
             int goldDiff = (int) (Math.random() * 10) + 1;
-            if (Math.random() > noTroubleChance) {
+            if ((Math.random() * easyMultiplier) > noTroubleChance) {
                 printMessage += Colors.RED + "Okay, stranger! You proved yer mettle. Here, take my gold." + Colors.RESET;
                 printMessage += Colors.RED + "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
                 hunter.changeGold(goldDiff);
@@ -154,7 +158,11 @@ public class Town {
      * @return true if the item broke.
      */
     private boolean checkItemBreak() {
-        double rand = Math.random();
-        return (rand < 0.5);
+        if (TreasureHunter.getDifficulty().equals("easy")) {
+            return false;
+        } else {
+            double rand = Math.random();
+            return (rand < 0.5);
+        }
     }
 }

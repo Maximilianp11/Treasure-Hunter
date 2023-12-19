@@ -15,7 +15,7 @@ public class TreasureHunter {
     // instance variables
     private Town currentTown;
     private Hunter hunter;
-    private boolean hardMode;
+    private static String difficulty;
 
     /**
      * Constructs the Treasure Hunter game.
@@ -24,7 +24,11 @@ public class TreasureHunter {
         // these will be initialized in the play method
         currentTown = null;
         hunter = null;
-        hardMode = false;
+        difficulty = "normal";
+    }
+
+    public static String getDifficulty() {
+        return difficulty;
     }
 
     /**
@@ -50,13 +54,18 @@ public class TreasureHunter {
         // set hunter instance variable
         hunter = new Hunter(name, 10);
 
-        System.out.print("Hard mode? (y/n): ");
-        String hard = SCANNER.nextLine().toLowerCase();
+        System.out.print("Easy, normal, or hard mode? (e/n/h): ");
+        difficulty = SCANNER.nextLine().toLowerCase();
         String[] itemsToPopulate = {"water", "rope", "machete", "horse", "boat"};
         int[] prices = Shop.getPriceList();
-        if (hard.equals("y")) {
-            hardMode = true;
-        } else if (hard.equals("test")) {
+        if (difficulty.equals("e")) {
+            difficulty = "easy";
+            hunter.changeGold(10);
+        } else if (difficulty.equals("m")) {
+            difficulty = "normal";
+        } else if (difficulty.equals("h")) {
+            difficulty = "hard";
+        } else if (difficulty.equals("test")) {
             hunter.changeGold(134);
             for (int i = 0; i < prices.length; i++) {
                 hunter.buyItem(itemsToPopulate[i], prices[i]);
@@ -70,12 +79,15 @@ public class TreasureHunter {
     private void enterTown() {
         double markdown = 0.25;
         double toughness = 0.4;
-        if (hardMode) {
+        switch (difficulty) {
             // in hard mode, you get less money back when you sell items
-            markdown = 0.5;
-
+            case "hard": markdown = 0.5;
             // and the town is "tougher"
             toughness = 0.75;
+            break;
+
+            case "easy": markdown = 1;
+            break;
         }
 
         // note that we don't need to access the Shop object
