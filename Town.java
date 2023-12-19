@@ -4,6 +4,8 @@
  * This code has been adapted from Ivan Turner's original program -- thank you Mr. Turner!
  */
 
+import java.util.Random;
+
 public class Town {
     // instance variables
     private Hunter hunter;
@@ -11,6 +13,7 @@ public class Town {
     private Terrain terrain;
     private String printMessage;
     private boolean toughTown;
+    private boolean couldNotPay;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -35,6 +38,8 @@ public class Town {
     public String getLatestNews() {
         return printMessage;
     }
+
+    public boolean getCouldNotPay() { return couldNotPay; }
 
     /**
      * Assigns an object to the Hunter in town.
@@ -72,6 +77,24 @@ public class Town {
 
         printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have a " + terrain.getNeededItem() + ".";
         return false;
+    }
+
+    public void digForGold() {
+        Random rand = new Random();
+        int random1;
+        random1 = rand.nextInt(2);
+
+        if (hunter.hasItemInKit("shovel")) {
+            if (random1 == 0) {
+                System.out.println();
+            } else if (random1 == 1) {
+                random1 = (int) (Math.random() * 8) + 12;
+                System.out.println("You dug up " + random1 + " gold!");
+                hunter.changeGold(random1);
+            }
+        } else {
+            System.out.println("You can't dig for gold without a shovel");
+        }
     }
 
     /**
@@ -113,9 +136,10 @@ public class Town {
                     printMessage += Colors.RED + "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
                 } else {
                     System.out.println();
+                    couldNotPay = true;
                     hunter.changeGold(-goldDiff);
                     printMessage += Colors.RED + "\nYou lost the brawl and could not pay the " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
-                    printMessage += "\n" + Colors.RED + "You lose.";
+
                 }
             }
         }
