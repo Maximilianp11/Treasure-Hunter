@@ -14,6 +14,7 @@ public class Town {
     private String printMessage;
     private boolean toughTown;
     private boolean couldNotPay;
+    private boolean alreadyDugForGold;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -65,6 +66,7 @@ public class Town {
     public boolean leaveTown() {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
         if (canLeaveTown) {
+            alreadyDugForGold = false;
             String item = terrain.getNeededItem();
             printMessage = "You used your " + item + " to cross the " + terrain.getTerrainName() + ".";
             if (checkItemBreak()) {
@@ -84,17 +86,24 @@ public class Town {
         int random1;
         random1 = rand.nextInt(2);
 
-        if (hunter.hasItemInKit("shovel")) {
-            if (random1 == 0) {
-                System.out.println();
-            } else if (random1 == 1) {
-                random1 = (int) (Math.random() * 8) + 12;
-                System.out.println("You dug up " + random1 + " gold!");
-                hunter.changeGold(random1);
+        if (!alreadyDugForGold) {
+            if (hunter.hasItemInKit("shovel")) {
+                if (random1 == 0) {
+                    System.out.println("You dug but only found dirt");
+                } else if (random1 == 1) {
+                    random1 = (int) (Math.random() * 8) + 12;
+                    System.out.println("You dug up " + random1 + " gold!");
+                    hunter.changeGold(random1);
+                }
+                alreadyDugForGold = true;
+            } else {
+                System.out.println("Yoiu can't dig for gold without a shovel");
             }
         } else {
-            System.out.println("You can't dig for gold without a shovel");
+            System.out.println("You already dug for gold in this town.");
         }
+
+
     }
 
     /**
