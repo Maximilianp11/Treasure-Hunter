@@ -91,7 +91,7 @@ public class TreasureHunter {
         }
 
         String[] treasures = {"Crown", "Trophy", "Gem", "Dust"};
-        String treasure = treasures[(int) (Math.random() * 5)];
+        String treasure = treasures[(int) (Math.random() * 4)];
 
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
@@ -101,7 +101,7 @@ public class TreasureHunter {
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
         // object in other methods of this class
-        currentTown = new Town(shop, toughness, treasure);
+        currentTown = new Town(shop, toughness, treasure, false);
 
         // calling the hunterArrives method, which takes the Hunter
         // as a parameter; note this also could have been done in the
@@ -151,6 +151,7 @@ public class TreasureHunter {
         } else {
             System.out.println("You do not need this dust.");
         }
+        currentTown.setTreasureFound(true);
     }
 
     /**
@@ -173,8 +174,12 @@ public class TreasureHunter {
         } else if (choice.equals("d")) {
             currentTown.digForGold();
         } else if (choice.equals("h")) {
-            System.out.println("You found a " + currentTown.getTreasure() + "!");
-            treasureSearch();
+            if (currentTown.getTreasureFound()) {
+                System.out.println("You have already searched this town");
+            } else {
+                System.out.println("You found a " + currentTown.getTreasure() + "!");
+                treasureSearch();
+            }
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }

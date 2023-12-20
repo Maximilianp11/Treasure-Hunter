@@ -147,10 +147,11 @@ public class Hunter {
 
     public boolean hasTreasure(String treasure) {
         for (String item : treasureBox) {
-            if (item.equals(treasure)) {
+            if (treasure.equals(item)) {
                 return true;
             }
         }
+
         return false;
     }
 
