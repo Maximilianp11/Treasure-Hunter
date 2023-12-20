@@ -58,6 +58,8 @@ public class TreasureHunter {
         difficulty = SCANNER.nextLine().toLowerCase();
         String[] itemsToPopulate = {"water", "rope", "machete", "boots", "horse", "boat", "shovel"};
         int[] prices = Shop.getPriceList();
+        String[] itemsToPopulate = {"water", "rope", "machete", "horse", "boat"};
+        int[] prices = Shop.getPriceList(difficulty);
         if (difficulty.equals("e")) {
             difficulty = "easy";
             hunter.changeGold(10);
@@ -71,6 +73,8 @@ public class TreasureHunter {
             for (int i = 0; i < prices.length; i++) {
                 hunter.buyItem(itemsToPopulate[i], prices[i]);
             }
+        } else if (difficulty.equals("s")) {
+            difficulty = "samuari";
         }
     }
 
