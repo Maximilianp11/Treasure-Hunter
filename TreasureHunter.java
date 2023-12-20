@@ -56,7 +56,7 @@ public class TreasureHunter {
 
         System.out.print("Easy, normal, or hard mode? (e/n/h): ");
         difficulty = SCANNER.nextLine().toLowerCase();
-        String[] itemsToPopulate = {"water", "rope", "machete", "horse", "boat"};
+        String[] itemsToPopulate = {"water", "rope", "machete", "boots", "horse", "boat", "shovel"};
         int[] prices = Shop.getPriceList();
         if (difficulty.equals("e")) {
             difficulty = "easy";
@@ -66,7 +66,8 @@ public class TreasureHunter {
         } else if (difficulty.equals("h")) {
             difficulty = "hard";
         } else if (difficulty.equals("test")) {
-            hunter.changeGold(134);
+            difficulty = "test";
+            hunter.changeGold(150);
             for (int i = 0; i < prices.length; i++) {
                 hunter.buyItem(itemsToPopulate[i], prices[i]);
             }
@@ -88,10 +89,14 @@ public class TreasureHunter {
 
             case "easy": markdown = 1;
             break;
+
+            default: markdown = 0.5;
+            toughness = 0.4;
+            break;
         }
 
         String[] treasures = {"Crown", "Trophy", "Gem", "Dust"};
-        String treasure = treasures[(int) (Math.random() * 5)];
+        String treasure = treasures[(int) (Math.random() * 4)];
 
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
