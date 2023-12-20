@@ -15,6 +15,7 @@ public class Shop {
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
     private static final int SHOVEL_COST = 8;
+    private static final int SWORD_COST = 0;
 
     // static variables
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -33,7 +34,11 @@ public class Shop {
         customer = null; // is set in the enter method
     }
 
-    public static int[] getPriceList() {
+    public static int[] getPriceList(String d) {
+        int[] arrWithSamuari = {2, 4, 6, 8, 12, 20, 8, 0};
+        if (d.equals("samuarl")) {
+            return arrWithSamuari;
+        }
         int[] arr = {2, 4, 6, 8, 12, 20, 8};
         return arr;
     }
@@ -62,7 +67,10 @@ public class Shop {
                 System.out.print("It'll cost you " + cost + " gold. Buy it (y/n)? ");
                 String option = SCANNER.nextLine().toLowerCase();
 
-                if (option.equals("y")) {
+                if (option.equals("y") && !TreasureHunter.getDifficulty().equals("samuari")) {
+                    buyItem(item);
+                } else if (option.equals("Y") && TreasureHunter.getDifficulty().equals("samuari")) {
+                    System.out.println("The shopkeeper sees your samuari and gives you the item for free!");
                     buyItem(item);
                 }
             }
@@ -98,7 +106,9 @@ public class Shop {
         str += "Horse: " + Colors.YELLOW + HORSE_COST + " gold\n" + Colors.RESET;
         str += "Boat: " + Colors.YELLOW + BOAT_COST + " gold\n" + Colors.RESET;
         str += "Shovel: " + Colors.YELLOW + SHOVEL_COST + " gold\n" + Colors.RESET;
-
+        if (TreasureHunter.getDifficulty().equals("samuari")) {
+            str += "Sword: " + Colors.YELLOW + SWORD_COST + " gold\n" + Colors.RESET;
+        }
         return str;
     }
 

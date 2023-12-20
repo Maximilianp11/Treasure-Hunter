@@ -63,6 +63,9 @@ public class Hunter {
             return false;
         }
 
+        if (TreasureHunter.getDifficulty().equals("samuari")) {
+            costOfItem = 0;
+        }
         gold -= costOfItem;
         addItem(item);
         return true;
