@@ -113,7 +113,7 @@ public class Town {
                 }
                 alreadyDugForGold = true;
             } else {
-                System.out.println("Yoiu can't dig for gold without a shovel");
+                System.out.println("You can't dig for gold without a shovel");
             }
         } else {
             System.out.println("You already dug for gold in this town.");
@@ -129,6 +129,7 @@ public class Town {
      */
     public void enterShop(String choice) {
         shop.enter(hunter, choice);
+        printMessage = "You left the shop";
     }
 
     /**
@@ -153,9 +154,9 @@ public class Town {
         } else {
             printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Colors.RESET;
             int goldDiff = (int) (Math.random() * 10) + 1;
-            if ((Math.random() * easyMultiplier) > noTroubleChance || TreasureHunter.getDifficulty().equals("samuari")) {
-                if (TreasureHunter.getDifficulty().equals("samuari")) {
-                    printMessage += Colors.RED + ("\nOh...a samuari...take my money!\n");
+            if ((Math.random() * easyMultiplier) > noTroubleChance || TreasureHunter.getDifficulty().equals("samurai")) {
+                if (TreasureHunter.getDifficulty().equals("samurai")) {
+                    printMessage += Colors.RED + ("\nOh...a samurai...take my money!\n");
                 }
                 printMessage += Colors.RED + "Okay, stranger! You proved yer mettle. Here, take my gold." + Colors.RESET;
                 printMessage += Colors.RED + "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
@@ -167,9 +168,10 @@ public class Town {
                     printMessage += Colors.RED + "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
                 } else {
                     System.out.println();
-
                     //hunter.changeGold(-goldDiff);
                     printMessage += Colors.RED + "\nYou lost the brawl and could not pay the " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
+                    System.out.println(printMessage);
+                    System.out.println("You lose!");
                     couldNotPay = true;
                 }
             }
