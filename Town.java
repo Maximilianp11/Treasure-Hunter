@@ -103,7 +103,7 @@ public class Town {
                 }
                 alreadyDugForGold = true;
             } else {
-                System.out.println("Yoiu can't dig for gold without a shovel");
+                System.out.println("You can't dig for gold without a shovel");
             }
         } else {
             System.out.println("You already dug for gold in this town.");
@@ -119,6 +119,7 @@ public class Town {
      */
     public void enterShop(String choice) {
         shop.enter(hunter, choice);
+        printMessage = "You left the shop";
     }
 
     /**
