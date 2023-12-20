@@ -72,7 +72,7 @@ public class TreasureHunter {
                 hunter.buyItem(itemsToPopulate[i], prices[i]);
             }
         } else if (difficulty.equals("s")) {
-            difficulty = "samuari";
+            difficulty = "samurai";
         }
     }
 
@@ -182,6 +182,8 @@ public class TreasureHunter {
         } else if (choice.equals("h")) {
             System.out.println("You found a " + currentTown.getTreasure() + "!");
             treasureSearch();
+        } else if (choice.equals("s")) {
+            System.out.println("Oh. My. Goodness.");
         } else {
             System.out.println("Yikes! That's an invalid option! Try again.");
         }
