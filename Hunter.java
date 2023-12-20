@@ -178,6 +178,24 @@ public class Hunter {
         return printableKit;
     }
 
+    public String getTreasureInventory() {
+        String treasureFound;
+        if (treasureBoxIsEmpty()) {
+            treasureFound = "\nTreasures found: none";
+        } else {
+            treasureFound = "\nTreasures found: ";
+        }
+        String space = " ";
+
+        for (String item : treasureBox) {
+            if (item != null) {
+                treasureFound += Colors.BLUE + item + space + Colors.RESET;
+            }
+        }
+
+        return treasureFound;
+    }
+
     /**
      * @return A string representation of the hunter.
      */
@@ -185,6 +203,9 @@ public class Hunter {
         String str = hunterName + " has " + Colors.YELLOW+  gold + " gold" + Colors.RESET;
         if (!kitIsEmpty()) {
             str += " and " + Colors.PURPLE + getInventory() + Colors.RESET;
+        }
+        if (!treasureBoxIsEmpty()) {
+            str += getTreasureInventory();
         }
         return str;
     }
@@ -213,6 +234,16 @@ public class Hunter {
      * @return true if kit is completely empty.
      */
     private boolean kitIsEmpty() {
+        for (String string : kit) {
+            if (string != null) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean treasureBoxIsEmpty() {
         for (String string : kit) {
             if (string != null) {
                 return false;
