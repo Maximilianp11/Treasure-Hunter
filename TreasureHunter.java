@@ -57,8 +57,6 @@ public class TreasureHunter {
         System.out.print("Easy, normal, or hard mode? (e/n/h): ");
         difficulty = SCANNER.nextLine().toLowerCase();
         String[] itemsToPopulate = {"water", "rope", "machete", "boots", "horse", "boat", "shovel"};
-        int[] prices = Shop.getPriceList();
-        String[] itemsToPopulate = {"water", "rope", "machete", "horse", "boat"};
         int[] prices = Shop.getPriceList(difficulty);
         if (difficulty.equals("e")) {
             difficulty = "easy";
