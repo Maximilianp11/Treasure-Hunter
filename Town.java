@@ -16,6 +16,7 @@ public class Town {
     private boolean couldNotPay;
     private boolean alreadyDugForGold;
     private String treasure;
+    private boolean treasureFound;
 
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
@@ -23,10 +24,11 @@ public class Town {
      * @param shop The town's shoppe.
      * @param toughness The surrounding terrain.
      */
-    public Town(Shop shop, double toughness, String treasure) {
+    public Town(Shop shop, double toughness, String treasure, boolean treasureFound) {
         this.shop = shop;
         this.terrain = getNewTerrain();
         this.treasure = treasure;
+        this.treasureFound = treasureFound;
 
 
         // the hunter gets set using the hunterArrives method, which
@@ -37,6 +39,14 @@ public class Town {
 
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
+    }
+
+    public void setTreasureFound(boolean bool) {
+        treasureFound = bool;
+    }
+
+    public boolean getTreasureFound() {
+        return treasureFound;
     }
 
     public String getLatestNews() {
@@ -103,7 +113,7 @@ public class Town {
                 }
                 alreadyDugForGold = true;
             } else {
-                System.out.println("Yoiu can't dig for gold without a shovel");
+                System.out.println("You can't dig for gold without a shovel");
             }
         } else {
             System.out.println("You already dug for gold in this town.");
@@ -119,6 +129,7 @@ public class Town {
      */
     public void enterShop(String choice) {
         shop.enter(hunter, choice);
+        printMessage = "You left the shop";
     }
 
     /**
