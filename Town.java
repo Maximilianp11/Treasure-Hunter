@@ -168,9 +168,10 @@ public class Town {
                     printMessage += Colors.RED + "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
                 } else {
                     System.out.println();
-
                     //hunter.changeGold(-goldDiff);
                     printMessage += Colors.RED + "\nYou lost the brawl and could not pay the " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
+                    System.out.println(printMessage);
+                    System.out.println("You lose!");
                     couldNotPay = true;
                 }
             }
