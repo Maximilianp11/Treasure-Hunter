@@ -56,8 +56,8 @@ public class TreasureHunter {
 
         System.out.print("Easy, normal, or hard mode? (e/n/h): ");
         difficulty = SCANNER.nextLine().toLowerCase();
-        String[] itemsToPopulate = {"water", "rope", "machete", "horse", "boat"};
-        int[] prices = Shop.getPriceList();
+        String[] itemsToPopulate = {"water", "rope", "machete", "boots", "horse", "boat", "shovel"};
+        int[] prices = Shop.getPriceList(difficulty);
         if (difficulty.equals("e")) {
             difficulty = "easy";
             hunter.changeGold(10);
@@ -66,10 +66,13 @@ public class TreasureHunter {
         } else if (difficulty.equals("h")) {
             difficulty = "hard";
         } else if (difficulty.equals("test")) {
-            hunter.changeGold(134);
+            difficulty = "test";
+            hunter.changeGold(150);
             for (int i = 0; i < prices.length; i++) {
                 hunter.buyItem(itemsToPopulate[i], prices[i]);
             }
+        } else if (difficulty.equals("s")) {
+            difficulty = "samuari";
         }
     }
 
@@ -77,16 +80,20 @@ public class TreasureHunter {
      * Creates a new town and adds the Hunter to it.
      */
     private void enterTown() {
-        double markdown = 0.25;
+        double markdown = 0.5;
         double toughness = 0.4;
         switch (difficulty) {
             // in hard mode, you get less money back when you sell items
-            case "hard": markdown = 0.5;
+            case "hard": markdown = 0.25;
             // and the town is "tougher"
             toughness = 0.75;
             break;
 
             case "easy": markdown = 1;
+            break;
+
+            default: markdown = 0.5;
+            toughness = 0.4;
             break;
         }
 

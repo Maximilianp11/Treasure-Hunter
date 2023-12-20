@@ -153,13 +153,15 @@ public class Town {
         } else {
             printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Colors.RESET;
             int goldDiff = (int) (Math.random() * 10) + 1;
-            if ((Math.random() * easyMultiplier) > noTroubleChance) {
+            if ((Math.random() * easyMultiplier) > noTroubleChance || TreasureHunter.getDifficulty().equals("samuari")) {
+                if (TreasureHunter.getDifficulty().equals("samuari")) {
+                    printMessage += Colors.RED + ("\nOh...a samuari...take my money!\n");
+                }
                 printMessage += Colors.RED + "Okay, stranger! You proved yer mettle. Here, take my gold." + Colors.RESET;
                 printMessage += Colors.RED + "\nYou won the brawl and receive " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
                 hunter.changeGold(goldDiff);
             } else {
                 printMessage += Colors.RED + "That'll teach you to go lookin' fer trouble in MY town! Now pay up!" + Colors.RESET;
-
                 if (hunter.getGold() - goldDiff >= 0) {
                     hunter.changeGold(-goldDiff);
                     printMessage += Colors.RED + "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
