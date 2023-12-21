@@ -209,7 +209,7 @@ public class Town {
      * @return true if the item broke.
      */
     private boolean checkItemBreak() {
-        if (TreasureHunter.getDifficulty().equals("easy")) {
+        if (TreasureHunter.getDifficulty().equals("easy") || TreasureHunter.getDifficulty().equals("test")) {
             return false;
         } else {
             double rand = Math.random();

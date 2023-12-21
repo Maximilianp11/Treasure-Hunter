@@ -72,7 +72,7 @@ public class TreasureHunter {
                 hunter.buyItem(itemsToPopulate[i], prices[i]);
             }
         } else if (difficulty.equals("s")) {
-            difficulty = "samuari";
+            difficulty = "samurai";
         }
     }
 
@@ -128,7 +128,7 @@ public class TreasureHunter {
             System.out.println(Colors.RED + "You lose.");
             processChoice("x");
         }
-        while (!choice.equals("x") && !currentTown.getCouldNotPay()) {
+        while (!choice.equals("x") && !currentTown.getCouldNotPay() && hunter.getTreasureCounter() < 3) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -158,7 +158,13 @@ public class TreasureHunter {
         } else {
             System.out.println("You do not need this dust.");
         }
+        System.out.println(hunter.getTreasureCounter());
         currentTown.setTreasureFound(true);
+        if (hunter.getTreasureCounter() == 3) {
+            System.out.println("You found a " + Colors.BLUE + currentTown.getTreasure() + Colors.RESET + "!");
+            System.out.println(Colors.GREEN + "Congratulations you have found the last of the three treasures, you win!" + Colors.RESET);
+            processChoice("x");
+        }
     }
 
     /**
@@ -183,7 +189,7 @@ public class TreasureHunter {
         } else if (choice.equals("h")) {
             if (currentTown.getTreasureFound()) {
                 System.out.println("You have already searched this town");
-            } else {
+            } else if (hunter.getTreasureCounter() < 3) {
                 System.out.println("You found a " + currentTown.getTreasure() + "!");
                 treasureSearch();
             }
