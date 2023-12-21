@@ -179,12 +179,7 @@ public class Hunter {
     }
 
     public String getTreasureInventory() {
-        String treasureFound;
-        if (treasureBoxIsEmpty()) {
-            treasureFound = "\nTreasures found: none";
-        } else {
-            treasureFound = "\nTreasures found: ";
-        }
+        String treasureFound = "";
         String space = " ";
 
         for (String item : treasureBox) {
@@ -205,7 +200,9 @@ public class Hunter {
             str += " and " + Colors.PURPLE + getInventory() + Colors.RESET;
         }
         if (!treasureBoxIsEmpty()) {
-            str += getTreasureInventory();
+            str = str + "\nTreasure Found: " + getTreasureInventory();
+        } else {
+            str += "\nTreasure Found: none";
         }
         return str;
     }
@@ -244,7 +241,7 @@ public class Hunter {
     }
 
     private boolean treasureBoxIsEmpty() {
-        for (String string : kit) {
+        for (String string : treasureBox) {
             if (string != null) {
                 return false;
             }

@@ -168,7 +168,6 @@ public class Town {
                     printMessage += Colors.RED + "\nYou lost the brawl and pay " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
                 } else {
                     System.out.println();
-                    //hunter.changeGold(-goldDiff);
                     printMessage += Colors.RED + "\nYou lost the brawl and could not pay the " + Colors.YELLOW + goldDiff + " gold." + Colors.RESET;
                     System.out.println(printMessage);
                     System.out.println("You lose!");
@@ -189,15 +188,15 @@ public class Town {
      */
     private Terrain getNewTerrain() {
         double rnd = Math.random();
-        if (rnd < .166) {
+        if (rnd < 1.0 / 6) {
             return new Terrain(Colors.CYAN + "Mountains" + Colors.RESET, "Rope");
-        } else if (rnd < .332) {
+        } else if (rnd < 2.0 / 6) {
             return new Terrain(Colors.CYAN +"Ocean" + Colors.RESET, "Boat");
-        } else if (rnd < .498) {
+        } else if (rnd < 3.0 / 6) {
             return new Terrain(Colors.CYAN + "Plains" + Colors.RESET, "Horse");
-        } else if (rnd < .664) {
+        } else if (rnd < 4.0 / 6) {
             return new Terrain(Colors.CYAN + "Desert" + Colors.RESET, "Water");
-        } else if (rnd < .83) {
+        } else if (rnd < 5.0 / 6) {
             return new Terrain(Colors.CYAN + "Marsh" + Colors.RESET, "Boots");
         } else {
             return new Terrain(Colors.CYAN + "Jungle" + Colors.RESET, "Machete");
